@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+     <link rel="icon" type="image/jpg" href="resources/image/log.jpg" />
+    </h:head>
+    <h:body> 
+       <h:form id="bilanEntreprise">
+           <p:dialog closable="true" width="1000" header="Bilan Entreprise" modal="true" showEffect="clip" widgetVar="dialPoint" resizable="true" position="top">
+               <p:outputPanel id="displ"  >
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Entreprise : " />
+                        <h:outputText value="#{travailMBean.entr.ENTREnum} #{travailMBean.entr.ENTREdesign} "/>
+                    
+                    </h:panelGrid>
+                   <p:dataTable style="border: none;"  var="item" emptyMessage="Aucune donnée"  value="#{travailMBean.listePoint(travailMBean.entr.ENTREnum)}" paginatorPosition="bottom" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
+                        <p:column  >
+                            <f:facet name="header" >
+                                <h:outputText value="Num"/>
+                            </f:facet>
+                            <h:outputText value="#{item[0]}"/>
+                            <f:facet name="footer">
+                                <h:outputText value="Total" />
+                            </f:facet>
+                        </p:column>
+                         <p:column  >
+                            <f:facet name="header" >
+                                <h:outputText value="Nom et Prenom"/>
+                            </f:facet>
+                             <h:outputText value="#{item[1]} #{item[2]}"/>
+                        </p:column>
+                         <p:column  >
+                            <f:facet name="header" >
+                                <h:outputText value="Nb jours"/>
+                            </f:facet>
+                            <h:outputText value="#{item[3]}"/>
+                        </p:column>
+                        <p:column  >
+                            <f:facet name="header" >
+                                <h:outputText value="SALAIRE"/>
+                            </f:facet>
+                            <h:outputText value="#{item[4]}"/>
+                            <f:facet name="footer">
+                                #{travailMBean.listePoint(travailMBean.entr.ENTREnum).stream().map(item->item[4]).sum()}
+                            </f:facet>
+                        </p:column>
+                         
+                        
+                      
+                                
+                         </p:dataTable>
+                    
+                
+                    
+
+                                    
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+                
+    </h:body>
+</html>
+
+

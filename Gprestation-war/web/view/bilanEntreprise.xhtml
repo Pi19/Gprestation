@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link rel="icon" type="image/jpg" href="resources/image/log.jpg" />
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <p:growl id="growl" life="5000" />
+                <p:layout>  
+                    <p:layoutUnit position="west" size="180" style=" border: none;font-size: 17px;">
+                        <ui:include src="../template/MenuGauche.xhtml"/>
+                    </p:layoutUnit>                   
+                    <p:layoutUnit position="center" style="height: 200px; border: none; font-size:13px;">
+                       <h3 style="margin-top:0">Bilan d'une entreprise</h3>
+                             <h:panelGrid columns="3" cellpadding="3">
+                                <h:outputLabel value="Numero Entreprise : "/>   
+                                <p:autoComplete id="tnumEntre" value="#{travailMBean.travailPk.ENTREnum}" completeMethod="#{travailMBean.completeT}" />
+                                <p:outputLabel value="*" style="color:red;font-size: 25px"/>
+                                   
+                                 <p:outputLabel for="time" value="Time:" />
+                                 <p:calendar id="time" value="#{travailMBean.travailPk.dateT}" pattern="yyyy" />
+                              
+                             </h:panelGrid>
+                              <p:toolbar>
+                            <f:facet name="left">
+                                <p:commandButton update=":bilanEntrepriseAnnuel:displ" oncomplete="PF('dial').show()" title="Bilan" icon="fa fa-area-chart" value="Filtrer" actionListener="#{travailMBean.transfertDonnee()}"  />
+                            </f:facet>    
+                        </p:toolbar>
+                          
+                           
+                       
+                    </p:layoutUnit> 
+                </p:layout>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+
+

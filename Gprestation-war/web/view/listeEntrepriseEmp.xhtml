@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link rel="icon" type="image/jpg" href="resources/image/log.jpg" />
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <p:growl id="growl" life="5000" />
+                <p:layout>  
+                    <p:layoutUnit position="west" size="180" style=" border: none;font-size: 17px;">
+                        <ui:include src="../template/MenuGauche.xhtml"/>
+                    </p:layoutUnit>                   
+                    <p:layoutUnit position="center" style="height: 200px; border: none; font-size:13px;">
+                       <h3 style="margin-top:0">Bilan d'un Employe</h3>
+                             <h:panelGrid columns="3" cellpadding="3">
+                                <h:outputLabel value="Numero Employe: "/>   
+                                <p:autoComplete id="tnumEntre" value="#{travailMBean.travailPk.numEmploye}" completeMethod="#{travailMBean.completeText}" />
+                                <p:outputLabel value="*" style="color:red;font-size: 25px"/>
+                                   
+                                 <p:outputLabel for="dateD" value="Debut contrat:" />
+                                 <p:calendar id="dateD" value="#{travailMBean.travail.dcontrat}" pattern="yyyy-MM-dd" />
+                                 <p:outputLabel value="*" style="color:red;font-size: 25px"/>
+                                 
+                                 <p:outputLabel for="dateF" value="Fin contrat:" />
+                                 <p:calendar id="dateF" value="#{travailMBean.travail.fcontrat}" pattern="yyyy-MM-dd" />
+                                 <p:outputLabel value="*" style="color:red;font-size: 25px"/>
+                              
+                             </h:panelGrid>
+                              <p:toolbar>
+                            <f:facet name="left">
+                                <p:commandButton ajax="false" title="Bilan" icon="fa fa-area-chart" value="Filtrer" actionListener="#{travailMBean.transfert3()}"  />
+                            </f:facet>    
+                        </p:toolbar>
+                   <p:panel header="RESULTAT ">
+                           
+                       <p:dataTable style="border: none;" rendered="#{travailMBean.travailPk.numEmploye != null}" var="item" emptyMessage="Aucune donnée"  value="#{travailMBean.listeEntreEmp(travailMBean.travailPk.numEmploye, travailMBean.travail.dcontrat,travailMBean.travail.fcontrat)}" paginatorPosition="bottom" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
+                        <p:column  >
+                            <f:facet name="header" >
+                                <h:outputText value="Numero"/>
+                            </f:facet>
+                            <h:outputText value="#{item.travailPK.ENTREnum}"/>
+                        </p:column>
+                         <p:column  >
+                            <f:facet name="header" >
+                                <h:outputText value="Designation"/>
+                            </f:facet>
+                             <h:outputText value="#{item.entreprise.ENTREdesign}"/>
+                        </p:column>
+                         <p:column  >
+                            <f:facet name="header" >
+                                <h:outputText value="Lieu"/>
+                            </f:facet>
+                             <h:outputText value="#{item.entreprise.ENTRElieu}"/>
+                        </p:column>
+                        <p:column  >
+                            <f:facet name="header" >
+                                <h:outputText value="Date d'Embauche"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TRAVAIembauche}">
+                             <f:convertDateTime pattern="yyyy-MM-dd" timeZone="Etc/GMT-3" type="date" />
+                            </h:outputText>
+                        </p:column>
+                        
+                    
+                         
+                        
+                      
+                                
+                         </p:dataTable>
+                         
+                 
+                        </p:panel>   
+                           
+                       
+                    </p:layoutUnit> 
+                </p:layout>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                >
+     
+    <h:form>
+        <p:graphicImage value="resources/image/ecole.jpg" style="width:120px; "></p:graphicImage>
+        <p:menu style="font-size:13px;">
+            <p:menuitem value="ACCUEIL" url="#{navigationMBean.accueil()}" icon="ui-icon-home" >  
+            </p:menuitem>
+            <p:submenu label="EMPLOYE" >
+                <p:menuitem value="Modification" icon="ui-icon-refresh" url="#{navigationMBean.listeEmp()}"/>
+                <p:menuitem value="Enregistrement" icon="ui-icon-disk" url="#{navigationMBean.enrEmploye()}"/>
+            </p:submenu>
+            <p:submenu label="ENTREPRISE">
+                <p:menuitem value="Modification"  icon="ui-icon-refresh" url="#{navigationMBean.listeEntrep()}"/>
+                <p:menuitem value="Enregistrement" icon="ui-icon-disk" url="#{navigationMBean.enrEntreprise()}"/>
+            </p:submenu> 
+            <p:submenu label="PERSONNEL">
+                <p:menuitem value="Ajout "  icon="ui-icon-refresh" url="#{navigationMBean.enrPersonnel()}"/>
+                <p:menuitem value="Liste" icon="ui-icon-disk" url="#{navigationMBean.listePersonnel()}"/>
+            </p:submenu> 
+            <p:submenu label="BILAN">
+                <p:menuitem value="Entreprise"  icon="ui-icon-refresh" url="#{navigationMBean.bilanEntreprise()}"/>
+                <p:menuitem value="Employe" icon="ui-icon-disk" url="#{navigationMBean.bilanEmploye()}"/>
+                <p:menuitem value="Chart" icon="ui-icon-disk" url="#{navigationMBean.chart()}"/>
+            </p:submenu> 
+          
+        </p:menu> 
+       
+        <h5 style='font-size: 12px'> &copy; Groupe M'dev    </h5>
+    </h:form>
+</ui:composition>

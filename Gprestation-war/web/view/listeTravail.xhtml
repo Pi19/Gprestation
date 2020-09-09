@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link rel="icon" type="image/jpg" href="resources/image/log.jpg" />
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form id="listeTravailForm">
+                <p:growl id="growl" life="5000" />
+                <p:layout>  
+                    <p:layoutUnit position="west" size="180" style=" border: none;font-size: 17px;">
+                        <ui:include src="../template/MenuGauche.xhtml"/>
+                    </p:layoutUnit> 
+                    
+                    <p:layoutUnit position="center" style="height: 200px ; border: none; font-size: 13px;">
+                         
+                     <f:facet name="header">
+                       Liste des Personnels<p:clock/>
+                    </f:facet>
+                        <p:dataTable id="listePers" emptyMessage="Aucune donnée" value="#{travailMBean.listeTravail()}" paginatorPosition="bottom" rows="20" var="item" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >                                      
+                            
+                            <p:column  filterBy="#{item.employe.numEmploye}" filterMatchMode="contains" style="width: 80px">
+                                <f:facet name="header">
+                                    <h:outputText value="Employe"/>
+                                </f:facet>
+                                <h:outputText value="#{item.employe.numEmploye}/#{item.employe.nomEmploye} #{item.employe.prenomEmploye}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.entreprise.ENTREnum}" filterMatchMode="contains" style="width: 120px">
+                                <f:facet name="header">
+                                    <h:outputText value="Entreprise"/>
+                                </f:facet>
+                                    <h:outputText value="#{item.entreprise.ENTREnum}/#{item.entreprise.ENTREdesign}"/>
+                            </p:column>
+                                <p:column   filterMatchMode="contains" style="width: 120px">
+                                <f:facet name="header">
+                                    <h:outputText value="Poste"/>
+                                </f:facet>
+                                    <h:outputText value="#{item.TRAVAIposte}"/>
+                               </p:column>
+                            <p:column   filterMatchMode="contains" style="width: 40px">
+                                <f:facet name="header">
+                                    <h:outputText value="Salaire"/>
+                                </f:facet>
+                                <h:outputText value="#{item.TRAVAItauxhoraire}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.TRAVAIembauche}"  filterMatchMode="contains" style="width: 40px">
+                                <f:facet name="header">
+                                    <h:outputText value="Annee"/>
+                                </f:facet>
+                                <h:outputText  value="#{item.TRAVAIembauche}">
+                                     <f:convertDateTime pattern="yyyy" timeZone="Etc/GMT-3" type="date" />
+                            </h:outputText>
+                            </p:column>
+                            
+                        
+                               
+                             <p:column style="width: 40px">
+                                <f:facet name="header">
+                                    <h:outputText value=""/>
+                                </f:facet> 
+                                 
+                            <p:commandButton update=":listeTravailForm:listePers" title="Supprimer" icon="ui-icon-trash" action="#{travailMBean.supprimerPersonnel(item)}">
+                                <p:confirm header="Confirmation" message="Voulez-vous vraiment supprimer cette entreprise" icon="ui-icon-alert"  />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                            </p:confirmDialog>
+                                 <p:commandButton update=":listeTravailForm:listePers" oncomplete="PF('dlg').show()" title="Heure de Travail" icon="ui-icon-clock" action="#{travailMBean.Affecter(item)}" />     
+                                
+                            
+                             </p:column>
+                        </p:dataTable>
+                    </p:layoutUnit>                   
+                </p:layout>             
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+
+
+

@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link rel="icon" type="image/jpg" href="resources/image/log.jpg" />
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <p:growl id="growl" life="5000" />
+                <p:layout>  
+                    <p:layoutUnit position="west" size="180" style=" border: none;font-size: 17px;">
+                        <ui:include src="../template/MenuGauche.xhtml"/>
+                    </p:layoutUnit>                   
+                    <p:layoutUnit position="center" style="height: 200px; border: none; font-size:13px;">
+                        <p:panel header="ENREGISTREMENT DU PERSONNEL D'UNE ENTREPRISE">
+                            <h:panelGrid columns="3" cellpadding="3">                           
+                                <h:outputLabel value="Numero Employe : "/>   
+                                <p:autoComplete id="tnumEmp" value="#{travailMBean.travailPk.numEmploye}" completeMethod="#{travailMBean.completeText}" />
+                                <p:outputLabel value="*" style="color:red;font-size: 25px"/>
+                                
+                                <h:outputLabel value="Numero Entreprise : "/>   
+                                <p:autoComplete id="tnumEntre" value="#{travailMBean.travailPk.ENTREnum}" completeMethod="#{travailMBean.completeT}" />
+                                <p:outputLabel value="*" style="color:red;font-size: 25px"/>
+                                
+                                <p:outputLabel  value="Date d'embauche:" />
+                                <p:calendar id="dtEmbauche"  pattern="dd-MM-yyyy" mask="true" value="#{travailMBean.travail.TRAVAIembauche}" />
+                                <p:outputLabel value="*" style="color:red;font-size: 25px" />
+                                
+                                <h:outputLabel for="poste" value="Poste : "/>
+                                <p:inputText id="posts" value="#{travailMBean.travail.TRAVAIposte}"/> 
+                                <p:outputLabel value="*" style="color:red;font-size: 25px"/>
+                                
+                                <h:outputLabel for="taux" value="Taux horaire : "/>
+                                <p:inputText id="taux" value="#{travailMBean.travail.TRAVAItauxhoraire}"/> 
+                                <p:outputLabel value="Ariary *" style="color:red;font-size: 25px"/>
+                                
+                                
+                                
+                                
+                              
+                                <p:outputLabel value=""/>
+                                <p:outputLabel value=""/>
+                                <p:outputLabel value="(*) Champs obligatoires" style="color:red;font-size: 15px"/>                      
+                            </h:panelGrid>
+                        </p:panel>
+                        <p:toolbar>
+                            <f:facet name="left">
+                                <p:commandButton ajax="false" value="Annuler" action="#{entrepriseMBean.annulerrEntreprise()}" icon="ui-icon-close"/>
+                            </f:facet>
+                            <f:facet name="right">
+                                <p:commandButton ajax="false" value="Enregistrer" iconPos="right" action="#{travailMBean.enrPersonnel()}" icon="ui-icon-carat-1-e"/>
+                            </f:facet>
+                        </p:toolbar>
+                        <p:panel header="INFORMATION ">
+                            <h:panelGrid columns="6" cellpadding="3">
+                    <div >
+                           <p:dataTable id="listeEntrep" emptyMessage="Aucune donnée" value="#{entrepriseMBean.listeEntreprise()}" paginatorPosition="bottom" rows="5" var="enr" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >                                      
+                            
+                                <p:column  filterBy="#{enr.ENTREnum}" filterMatchMode="contains" style="width: 50px">
+                                <f:facet name="header">
+                                    <h:outputText value="Numero"/>
+                                </f:facet>
+                                    <h:outputText value="#{enr.ENTREnum}"/>
+                            </p:column>
+                                <p:column  filterBy="#{enr.ENTREdesign}" filterMatchMode="contains" style="width: 120px">
+                                <f:facet name="header">
+                                    <h:outputText value="Designation"/>
+                                </f:facet>
+                                    <h:outputText value="#{enr.ENTREdesign}"/>
+                            </p:column>
+                                <p:column  filterBy="#{enr.ENTRElieu}" filterMatchMode="contains" style="width: 120px">
+                                <f:facet name="header">
+                                    <h:outputText value="Lieu"/>
+                                </f:facet>
+                                    <h:outputText value="#{enr.ENTRElieu}"/>
+                               </p:column>
+                               
+                            
+                        </p:dataTable>
+                    </div>
+                    <div>
+                        <p:dataTable id="liste" emptyMessage="Aucune donnée" value="#{employeMBean.listeEmploye()}" paginatorPosition="bottom" rows="5" var="item" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >                                      
+                            
+                            <p:column  filterBy="#{item.numEmploye}" filterMatchMode="contains" style="width: 50px">
+                                <f:facet name="header">
+                                    <h:outputText value="Num"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numEmploye}"/>
+                            </p:column>
+                            <p:column style="width: 120px">
+                                <f:facet name="header">
+                                    <h:outputText value="Nom"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nomEmploye} #{item.prenomEmploye}"/>
+                            </p:column>
+                            
+                            <p:column  filterBy="#{item.adresseEmploye}" filterMatchMode="contains" style="width: 120px">
+                                <f:facet name="header">
+                                    <h:outputText value="Adresse"/>
+                                </f:facet>
+                                <h:outputText value="#{item.adresseEmploye}"/>
+                            </p:column>
+                            
+                            <p:column  filterBy="#{item.situationMatrimonialeEmploye}" filterMatchMode="contains" style="width: 100px">
+                                <f:facet name="header">
+                                    <h:outputText value="Situation"/>
+                                </f:facet>
+                                <h:outputText value="#{item.situationMatrimonialeEmploye}"/>
+                            </p:column>
+                        </p:dataTable>
+                                </div>
+                               
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:layoutUnit>                   
+                </p:layout>             
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+
+

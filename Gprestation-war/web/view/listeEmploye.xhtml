@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link rel="icon" type="image/jpg" href="resources/image/log.jpg" />
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form id="listeEmploye">
+                <p:growl id="growl" life="5000" />
+                <p:layout>  
+                    <p:layoutUnit position="west" size="180" style=" border: none;font-size: 17px;">
+                        <ui:include src="../template/MenuGauche.xhtml"/>
+                    </p:layoutUnit>                   
+                    <p:layoutUnit position="center" style="height: 200px ; border: none; font-size: 13px;">
+                     <f:facet name="header">
+                       Liste des  Employes 
+                    </f:facet>
+                        <p:dataTable id="liste" emptyMessage="Aucune donnée" value="#{employeMBean.listeEmploye()}" paginatorPosition="bottom" rows="50" var="item" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >                                      
+                            
+                            <p:column  filterBy="#{item.numEmploye}" filterMatchMode="contains" style="width: 50px">
+                                <f:facet name="header">
+                                    <h:outputText value="Num"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numEmploye}"/>
+                            </p:column>
+                            <p:column  filterBy="#{item.nomEmploye}" filterMatchMode="contains" style="width: 120px">
+                                <f:facet name="header">
+                                    <h:outputText value="Nom"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nomEmploye}"/>
+                            </p:column>
+                            <p:column  filterBy="#{item.prenomEmploye}" filterMatchMode="contains" style="width: 120px">
+                                <f:facet name="header">
+                                    <h:outputText value="Prenom"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prenomEmploye}"/>
+                            </p:column>
+                            <p:column  filterBy="#{item.adresseEmploye}" filterMatchMode="contains" style="width: 120px">
+                                <f:facet name="header">
+                                    <h:outputText value="Adresse"/>
+                                </f:facet>
+                                <h:outputText value="#{item.adresseEmploye}"/>
+                            </p:column>
+                            
+                            <p:column  filterBy="#{item.situationMatrimonialeEmploye}" filterMatchMode="contains" style="width: 100px">
+                                <f:facet name="header">
+                                    <h:outputText value="Situation"/>
+                                </f:facet>
+                                <h:outputText value="#{item.situationMatrimonialeEmploye}"/>
+                            </p:column>
+                            <p:column style="width: 40px;">
+                                <p:commandButton update=":formModifEmploye:displ" oncomplete="PF('dlg').show()" title="Modifier" icon = "ui-icon-pencil" action="#{employeMBean.affecterEmp(item)}" /> 
+                            <p:commandButton update=":listeEmploye:liste" title="Supprimer" icon="ui-icon-trash" action="#{employeMBean.suppEmploye(item)}">
+                                <p:confirm header="Confirmation" message="Voulez-vous vraiment supprimer cette entreprise" icon="ui-icon-alert"  />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                            </p:confirmDialog>
+                            </p:column>
+                        </p:dataTable>
+                    </p:layoutUnit>                   
+                </p:layout>             
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+
+
+

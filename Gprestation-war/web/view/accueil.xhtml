@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+           <link rel="icon" type="image/jpg" href="resources/image/log.jpg" />
+        </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <p:layout> 
+                    <p:layoutUnit position="west" size="180" style="border: none;">
+                        <ui:include src="../template/MenuGauche.xhtml"/>
+                    </p:layoutUnit>                   
+                    <p:layoutUnit position="center" style="height: 200px; border:none;">
+                          <p:graphicImage value="resources/image/fond.jpg"></p:graphicImage>
+                          
+                         <h2 style='color: #990033'>GROUPE M'DEV</h2>
+                         <h2 style='color: #990033'>ENI MADAGASCAR  </h2>
+                         <h2 style='color: #990033'>+261 32 08 215 11</h2>
+                         <h:panelGrid columns="1" cellspacing="3">
+                             <h:outputLabel style="font-size: 13px;margin-left:800px;color:#cc3300" value="#{authentification.utilisateur.utilinom}  #{authentification.utilisateur.utiliprenom}"/>
+                          <p:commandButton icon="ui-icon-locked" style="margin-left:800px;" action="#{authentification.deconnecter()}" value="Deconnecter"></p:commandButton>
+                         </h:panelGrid>
+                    </p:layoutUnit>                   
+                </p:layout>             
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
